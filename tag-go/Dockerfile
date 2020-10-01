@@ -108,7 +108,7 @@ RUN set -ex; \
     code-server --extensions-dir=/home/demyx/.code/extensions \
     --install-extension=equinusocio.vsc-material-theme \
     --install-extension=pkief.material-icon-theme \
-    --install-extension=ms-vscode.go; \
+    --install-extension=golang.go; \
     \
     # Set ownership
     chown -R demyx:demyx /home/demyx/.code; \
