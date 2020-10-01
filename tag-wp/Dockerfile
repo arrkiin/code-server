@@ -21,6 +21,14 @@ RUN set -ex; \
     install -d -m 0755 -o demyx -g demyx "$CODE_CONFIG"; \
     install -d -m 0755 -o demyx -g demyx "$CODE_LOG"
 
+RUN set -ex; \
+    apt-get update && apt-get install -y --no-install-recommends \
+    gnupg
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 # Packages
 RUN set -ex; \
     apt-get update && apt-get install -y --no-install-recommends \
@@ -40,6 +48,9 @@ RUN set -ex; \
     unzip \
     util-linux \
     tzdata \
+    nodejs \
+    yarn \
+    npm \
     zsh; \
     \
     rm -rf /var/lib/apt/lists/*
@@ -49,7 +60,7 @@ RUN set -ex; \
     curl -sL https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions -o /usr/local/bin/install-php-extensions; \
     chmod uga+x /usr/local/bin/install-php-extensions; \
     sync; \
-    install-php-extensions exif gd imagick mysqli opcache pdo_mysql ssh2 sockets xdebug zip
+    install-php-extensions exif gd imagick mysqli opcache pdo_mysql ssh2 sockets xdebug zip redis
 
 # Set up user
 RUN set -ex; \
